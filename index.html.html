@@ -1,0 +1,180 @@
+# Query: index.html\n
+# ContextLines: 1
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora do 2º Grau - PC Paulão</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928DAB);
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .elogios {
+      font-style: italic;
+      font-size: 1em;
+      margin-bottom: 20px;
+      color: #ffda77;
+    }
+
+    label {
+      font-size: 0.9em;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .input-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .input-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input {
+      padding: 10px;
+      width: 60px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      margin-top: 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ffffff33;
+      color: white;
+      cursor: pointer;
+    }
+
+    #resultado {
+      margin-top: 30px;
+      font-size: 1.1em;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: #ffffff22;
+      padding: 20px;
+      border-radius: 10px;
+      white-space: pre-line;
+    }
+
+    #respostaFinal {
+      font-size: 1.3em;
+      color: #90ee90;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .paulao {
+      margin-top: 40px;
+      font-size: 1.1em;
+      color: #ffa07a;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calculadora do 2º Grau 📘</h1>
+  <div class="elogios">
+    Homenagem ao incomparável, insuperável, inquestionável:
+    <strong>PC Paulão</strong> 🧠✨<br/>
+    Também conhecido como: Rei do Bhaskara 👑, Mestre do Delta 🧮, Lorde das Raízes 💥, e<br/>
+    <strong>“Professor que resolve a equação só com o olhar!”</strong> 🔥
+  </div>
+
+  <p>Digite os coeficientes da equação <strong>ax² + bx + c = 0</strong>:</p>
+
+  <div class="input-group">
+    <div class="input-item">
+      <label for="a">🔷 Coeficiente <strong>a</strong> (do x²):</label>
+      <input type="number" id="a" placeholder="a" />
+    </div>
+    <div class="input-item">
+      <label for="b">🟣 Coeficiente <strong>b</strong> (do x):</label>
+      <input type="number" id="b" placeholder="b" />
+    </div>
+    <div class="input-item">
+      <label for="c">🟠 Coeficiente <strong>c</strong> (constante):</label>
+      <input type="number" id="c" placeholder="c" />
+    </div>
+  </div>
+
+  <button onclick="calcular()">Calcular</button>
+
+  <div id="resultado"></div>
+  <div id="respostaFinal"></div>
+
+  <div class="paulao">
+    📢 Se essa equação tivesse uma chance, ela pediria ajuda... mas já era!<br/>
+    Porque quem chegou foi ele: <strong>PC Paulão, o destruidor de incógnitas!</strong> 🔍💣
+  </div>
+
+  <script>
+    function calcular() {
+      const a = parseFloat(document.getElementById('a').value);
+      const b = parseFloat(document.getElementById('b').value);
+      const c = parseFloat(document.getElementById('c').value);
+
+      const resultado = document.getElementById('resultado');
+      const respostaFinal = document.getElementById('respostaFinal');
+
+      if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        resultado.innerHTML = "⚠️ Preencha todos os coeficientes!";
+        respostaFinal.innerHTML = "";
+        return;
+      }
+
+      if (a === 0) {
+        resultado.innerHTML = "⚠️ Isso não é uma equação do 2º grau (a ≠ 0).";
+        respostaFinal.innerHTML = "";
+        return;
+      }
+
+      const delta = b * b - 4 * a * c;
+      const raizDelta = Math.sqrt(Math.abs(delta));
+
+      let passos = `🧠 Passo a passo com o toque mágico do PC Paulão:\n`;
+      passos += `\n📘 1. Fórmula de Bhaskara:\n   x = (-b ± √Δ) / (2a)`;
+      passos += `\n\n🧮 2. Calculando Δ:\n   Δ = b² - 4ac = (${b})² - 4×${a}×${c} = ${delta}`;
+
+      if (delta < 0) {
+        passos += `\n\n🚫 3. Como Δ < 0, não existem raízes reais.`;
+        resultado.innerHTML = passos;
+        respostaFinal.innerHTML = `🟥 Resultado: Sem raízes reais 😢`;
+        return;
+      }
+
+      passos += `\n\n📏 3. Raiz de Δ:\n   √Δ = ${raizDelta.toFixed(2)}`;
+
+      const x1 = (-b + raizDelta) / (2 * a);
+      const x2 = (-b - raizDelta) / (2 * a);
+
+      passos += `\n\n🧩 4. Cálculo das raízes:\n   x₁ = (-${b} + √${delta}) / (2×${a}) = ${x1.toFixed(2)}\n   x₂ = (-${b} - √${delta}) / (2×${a}) = ${x2.toFixed(2)}`;
+
+      resultado.innerHTML = passos;
+      respostaFinal.innerHTML = `✅ Raízes encontradas: x₁ = ${x1.toFixed(2)} | x₂ = ${x2.toFixed(2)} 🎯`;
+    }
+  </script>
+</body>
+</html>
